@@ -68,6 +68,8 @@ Router.post('/', multiPart, async (req, res) => {
     }
 })
 
-// Router.get('/', renderList )
+Router.get('/', async (req, res) => {
+    res.json({message: "its working"})
+})
 
 module.exports = Router
