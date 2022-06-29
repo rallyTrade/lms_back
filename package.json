@@ -6,9 +6,9 @@
   },
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon app",
+    "start": "nodemon app",
     "build": "node app"
   },
   "keywords": [],
