@@ -22,6 +22,12 @@ phases:
 
   pre_build:
     commands:
+      # 👇️ delete node_modules and package-lock.json
+      - rm -rf node_modules
+      - rm -f package-lock.json
+
+      # 👇️ clean npm cache
+      - npm cache clean --force
       - echo Installing dependencies
       - npm install
 
