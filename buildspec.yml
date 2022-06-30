@@ -17,8 +17,8 @@ phases:
       - npm i npm@latest -g
       - pip install --upgrade pip
       - pip install --upgrade awscli
-    # runtime-versions:
-    #   nodejs: 12
+    runtime-versions:
+      nodejs: 12
 
   pre_build:
     commands:
