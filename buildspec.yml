@@ -1,4 +1,15 @@
 version: 0.2
+env:
+  variables:
+    AWS_ACCESS_KEY_ID: "AKIAYJEBC2FHCTWYXV5M"
+    AWS_SECRET_ACCESS_KEY: "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"
+    AWS_REGION: "us-east-2"
+    AWS_BUCKET_NAME: "lms-node-s3"
+    DYNAMODB_LMS_TABLE: "lms_course-master"
+    DYNAMODB_LMS_TABLE_QUIZ: "lms_quiz-master"
+    DYNAMODB_LMS_TABLE_ONBOARD: "lms_onboarding-master"
+    JWT_SECRET: "!@#$%^&*~123456789"
+    PORT: "1950"
 
 phases:
   install:
