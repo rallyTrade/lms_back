@@ -2,7 +2,7 @@ const express = require('express')
 
 const multer = require('multer')
 
-const { s3Uploadv2 } = require('../../config/_S3Serviceee')
+const { s3Uploadv2 } = require('../../config/_S3Service')
 const { createDynamoDBv2, scanDynamoDBv2, scanDynamoByIDv2, updateDynamoByID, deleteDynamoByID } = require('../../config/DynamoService')
 const { verifyToken, is_super_user } = require('../../middlewares/CreateToken')
 
