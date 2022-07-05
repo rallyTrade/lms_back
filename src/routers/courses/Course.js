@@ -4,7 +4,7 @@ const multer = require('multer')
 
 const { createDynamoDBv2, scanDynamoDBv2, scanDynamoByIDv2, updateDynamoByID, deleteDynamoByID } = require('../../config/DynamoService')
 const { verifyToken, is_super_user } = require('../../middlewares/CreateToken')
-const s3Uploadv2 = require('../../config/S3Service.js')
+// const { s3Uploadv2 } = require('../../config/S3Service')
 
 const Router = express.Router()
 
