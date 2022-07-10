@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "engines": {
-    "npm": ">=8.11.0",
-    "node": ">=16.15.1"
-  },
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon app",
-    "build": "cross-env NODE_ENV=production node app"
+    "start": "node app",
+    "build": "node app"
   },
   "keywords": [],
   "author": "",
