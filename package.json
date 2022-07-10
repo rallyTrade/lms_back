@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app",
-    "build": "node app"
+    "start": "cross-env NODE_ENV=development nodemon app",
+    "build": "cross-env NODE_ENV=production node app"
   },
   "keywords": [],
   "author": "",
