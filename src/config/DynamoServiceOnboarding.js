@@ -3,46 +3,76 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
+const table = new AWS.DynamoDB()
 const notification = new AWS.SES()
 
 // make this fuction visible to be used
 exports.onboardingDynamoDBv2 = async (files) => {
+    const isTableExist = table.listTables(process.env.DYNAMODB_LMS_TABLE_ONBOARD).promise()
     let createdAt = new Date().toISOString();
 
-    // collect form data field
-    // make a post to the dynamo db
-    let putParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
-        Item: {
-            id: uuidv4(),
-            staff_id: files.staff_id,
-            email: files.email,
-            first_name: files.first_name,
-            last_name: files.last_name,
-            password: files.password,
-            super_user: false,
-            score_count: 0,
-            createdAt: createdAt
+    try {
+
+        if (!isTableExist) {
+            console.log(isTableExist)
+            // create a dynamodb table
+            let params = {
+                TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+                KeySchema: [
+                    { AttributeName: "id", KeyType: "HASH" }  //Partition key
+                ],
+                AttributeDefinitions: [
+                    { AttributeName: "id", AttributeType: "S" }
+                ],
+                ProvisionedThroughput: {
+                    ReadCapacityUnits: 10,
+                    WriteCapacityUnits: 10
+                }
+            };
+
+            await table.createTable(params).promise()
+        } else {
+
+            // collect form data field
+            // make a post to the dynamo db
+            let putParams = {
+                TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+                Item: {
+                    id: uuidv4(),
+                    staff_id: files.staff_id,
+                    email: files.email,
+                    first_name: files.first_name,
+                    last_name: files.last_name,
+                    password: files.password,
+                    super_user: false,
+                    score_count: 0,
+                    createdAt: createdAt
+                }
+            };
+
+            // check if staff id already exist in the db
+            let queryParams = {
+                TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+                FilterExpression: 'staff_id = :staff_id',
+                ExpressionAttributeValues: {
+                    ':staff_id': files.staff_id,
+                },
+            };
+
+            const staffExist = await dynamo.scan(queryParams).promise();
+
+            if (staffExist.Items.length < 1 || staffExist.Items[0].staff_id !== files.staff_id) {
+                // promisify the form data and return it
+                return await dynamo.put(putParams).promise()
+
+            } else {
+                return null
+            }
+
         }
-    };
 
-    // check if staff id already exist in the db
-    let queryParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
-        FilterExpression: 'staff_id = :staff_id',
-        ExpressionAttributeValues: {
-            ':staff_id': files.staff_id,
-        },
-    };
-
-    const staffExist = await dynamo.scan(queryParams).promise();
-    
-    if (staffExist.Items.length < 1 || staffExist.Items[0].staff_id !== files.staff_id) {
-        // promisify the form data and return it
-        return await dynamo.put(putParams).promise()
-        
-    } else {
-        return null
+    } catch (error) {
+        return error
     }
 }
 
