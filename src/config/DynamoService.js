@@ -8,7 +8,7 @@ exports.createDynamoDBv2 = async (files, text) => {
     // collect form data field
     // make a post to the dynamo db
     let putParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE,
+        TableName: process.env.DYNAMODB_LMS_TABLE_DEV_DEV,
         Item: {
             id: uuidv4(),
             courseFile: [files[0].Location], //course file field s3 url
@@ -28,7 +28,7 @@ exports.createDynamoDBv2 = async (files, text) => {
 // scan function visible
 exports.scanDynamoDBv2 = async () => {
     let scanParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE,
+        TableName: process.env.DYNAMODB_LMS_TABLE_DEV,
     }
     // scan the database
     return await dynamo.scan(scanParams).promise()
@@ -37,7 +37,7 @@ exports.scanDynamoDBv2 = async () => {
 // scand dynamo db by id
 exports.scanDynamoByIDv2 = async (id) => {
     let getParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE,
+        TableName: process.env.DYNAMODB_LMS_TABLE_DEV,
         Key: {
             id
         }
@@ -49,7 +49,7 @@ exports.scanDynamoByIDv2 = async (id) => {
 // update dynamo db by id
 exports.updateDynamoByID = async (id, bodyObj, files) => {
     let updateParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE,
+        TableName: process.env.DYNAMODB_LMS_TABLE_DEV,
         Key: {
             id
         },
@@ -80,7 +80,7 @@ exports.updateDynamoByID = async (id, bodyObj, files) => {
 exports.deleteDynamoByID = async (id) => {
 
     let delParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE,
+        TableName: process.env.DYNAMODB_LMS_TABLE_DEV,
         Key: {
             id
         }

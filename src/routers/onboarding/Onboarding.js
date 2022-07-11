@@ -8,7 +8,7 @@ const Router = express.Router()
 
 
 // baseurl/v1/lms/onboading -> route for get
-Router.post('/', async (req, res) => {
+Router.post('/',  async (req, res) => {
     const getBodyObj = req.body;
 
     try {
@@ -30,7 +30,6 @@ Router.post('/', async (req, res) => {
         }
 
         const result = await onboardingDynamoDBv2(getBodyObj)
-        console.log(result)
 
         if (result == null) {
             return res.json({

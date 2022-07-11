@@ -12,7 +12,7 @@ exports.onboardingDynamoDBv2 = async (files) => {
 
     // check if staff id already exist in the db
     let queryParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV_DEV,
         FilterExpression: 'staff_id = :staff_id',
         ExpressionAttributeValues: {
             ':staff_id': files.staff_id,
@@ -27,7 +27,7 @@ exports.onboardingDynamoDBv2 = async (files) => {
         // collect form data field
         // make a post to the dynamo db
         let putParams = {
-            TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+            TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
             Item: {
                 id: uuidv4(),
                 staff_id: files.staff_id,
@@ -53,7 +53,7 @@ exports.onboardingDynamoDBv2 = async (files) => {
 exports.updateScores = async (id, bodyObj) => {
 
     let updateParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         Key: {
             id
         },
@@ -75,7 +75,7 @@ exports.updateScores = async (id, bodyObj) => {
 exports.scanDynamoDBOnboardingv2 = async () => {
 
     let scanParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV
     };
 
     return await dynamo.scan(scanParams).promise();
@@ -85,7 +85,7 @@ exports.scanDynamoDBOnboardingv2 = async () => {
 // get staff by id
 exports.scanDynamoByIDv2 = async (id) => {
     let getParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         Key: {
             id
         }
@@ -101,7 +101,7 @@ exports.updateStaffInfo = async (id, bodyObj) => {
     const hashPwd = await bcrypt.hash(bodyObj.password, salt)
 
     let getParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         Key: {
             id
         },
@@ -127,7 +127,7 @@ exports.updateStaffInfo = async (id, bodyObj) => {
 exports.queryOnboardingUser = async (bodyObj) => {
     const pwd = bodyObj.password
     let queryParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         FilterExpression: 'staff_id = :staff_id',
         ExpressionAttributeValues: {
             ':staff_id': bodyObj.staff_id,
@@ -154,7 +154,7 @@ exports.queryOnboardingUser = async (bodyObj) => {
 exports.deleteDynamoByIDOnboarding = async (id) => {
     // query table
     let delParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         Key: {
             id
         }
@@ -166,7 +166,7 @@ exports.deleteDynamoByIDOnboarding = async (id) => {
 exports.forgotPassword = async (emailTo) => {
 
     let queryParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         FilterExpression: 'email = :email',
         ExpressionAttributeValues: {
             ':email': emailTo,

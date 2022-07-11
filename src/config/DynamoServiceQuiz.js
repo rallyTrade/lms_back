@@ -9,7 +9,7 @@ exports.createDynamoDBQuiz = async (quiz) => {
     // collect form data field
     // make a post to the dynamo db
     let putParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ,
+        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ_DEV,
         Item: {
             id: uuidv4(),
             createdAt: createdAt,
@@ -29,7 +29,7 @@ exports.createDynamoDBQuiz = async (quiz) => {
 exports.scanDynamoDBQuiz = async () => {
 
     let scanParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ
+        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ_DEV
     };
 
     // promisify the form data and return it
@@ -38,7 +38,7 @@ exports.scanDynamoDBQuiz = async () => {
 
 exports.updateDynamoDBQuiz = async (id, bodyObj) => {
     let updateParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ,
+        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ_DEV,
         Key: {
             id
         },
@@ -65,7 +65,7 @@ exports.updateDynamoDBQuiz = async (id, bodyObj) => {
 exports.deleteDynamoByIDQuiz = async (id) => {
 
     let delParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ,
+        TableName: process.env.DYNAMODB_LMS_TABLE_QUIZ_DEV,
         Key: {
             id
         }
