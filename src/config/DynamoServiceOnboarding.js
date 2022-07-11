@@ -7,7 +7,7 @@ const notification = new AWS.SES()
 
 // make this fuction visible to be used
 exports.onboardingDynamoDBv2 = async (files) => {
-    console.log(process.env.NODE_ENV)
+    
     let createdAt = new Date().toISOString();
 
     // check if staff id already exist in the db

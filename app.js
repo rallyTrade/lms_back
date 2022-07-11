@@ -12,4 +12,4 @@ app.use('/v1/lms/course', require('./src/routers/courses/Course'))
 app.use('/v1/lms/quiz', require('./src/routers/quiz/Quiz'))
 app.use('/v1/lms/onboarding', require('./src/routers/onboarding/Onboarding'))
 
-app.listen(currentPort, () => process.env.PORT ? '' : console.log('server is running'))
+app.listen(currentPort, () => process.env.PORT ? process.env.NODE_ENV : console.log('server is running', process.env.NODE_ENV))
