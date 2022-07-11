@@ -8,7 +8,7 @@ const Router = express.Router()
 
 
 // baseurl/v1/lms/onboading -> route for get
-Router.post('/', verifyToken, is_super_user, async (req, res) => {
+Router.post('/',  async (req, res) => {
     const getBodyObj = req.body;
 
     try {
