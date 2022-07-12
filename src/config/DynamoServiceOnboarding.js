@@ -12,7 +12,7 @@ exports.onboardingDynamoDBv2 = async (files) => {
 
     // check if staff id already exist in the db
     let queryParams = {
-        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV_DEV,
+        TableName: process.env.DYNAMODB_LMS_TABLE_ONBOARD_DEV,
         FilterExpression: 'staff_id = :staff_id',
         ExpressionAttributeValues: {
             ':staff_id': files.staff_id,
