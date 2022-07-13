@@ -1,5 +1,6 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+var cors = require('cors')
 const app = express()
 
 
@@ -8,6 +9,7 @@ const currentPort = process.env.PORT || 1950
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
+app.use(cors())
 
 app.use('/v1/lms/course', require('./src/routers/courses/Course'))
 app.use('/v1/lms/quiz', require('./src/routers/quiz/Quiz'))
