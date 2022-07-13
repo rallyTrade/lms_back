@@ -4,12 +4,26 @@ var cors = require('cors')
 const app = express()
 
 
+const corsOpts = {
+    origin: '*',
+
+    methods: [
+        'GET',
+        'POST',
+    ],
+
+    allowedHeaders: [
+        'Content-Type',
+    ],
+};
+
 require('dotenv').config()
 const currentPort = process.env.PORT || 1950
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(cors())
+
+app.use(cors(corsOpts))
 
 app.use('/v1/lms/course', require('./src/routers/courses/Course'))
 app.use('/v1/lms/quiz', require('./src/routers/quiz/Quiz'))
