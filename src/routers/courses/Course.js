@@ -119,7 +119,7 @@ Router.post('/', verifyToken, is_super_user, multiPart, async (req, res) => {
 })
 
 // baseurl/v1/lms/course/ -> route for get
-Router.get('/', verifyToken, async (req, res) => {
+Router.get('/', async (req, res) => {
     try {
         // get the scan result
         let scanResult = await scanDynamoDBv2()
